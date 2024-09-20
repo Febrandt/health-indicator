@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Calculadora de Macros</title>
+</head>
+<body>
+    <%- include('partials/header', {user:user}) %>
+    <div class="container mt-5">
+        <h1 class="text-center">Calculadora de Macros</h1>
+        <form id="macroForm">
+            <div class="mb-3">
+                <label for="calorias" class="form-label">Calorias Diárias</label>
+                <input type="number" class="form-control" id="calorias" name="calorias" value="<%= user.calorias%>" required>
+            </div>
+            <div class="mb-3">
+                <label for="carboidratosRange" class="form-label">Porcentagem de Carboidratos (%)</label>
+                <input type="range" class="form-range" min="0" max="100" id="carboidratosRange" name="carboidratosRange" oninput="updateValue('carboidratosValue', this.value)" required>
+                <span id="carboidratosValue">50%</span>
+            </div>
+            <div class="mb-3">
+                <label for="proteinasRange" class="form-label">Porcentagem de Proteínas (%)</label>
+                <input type="range" class="form-range" min="0" max="100" id="proteinasRange" name="proteinasRange" oninput="updateValue('proteinasValue', this.value)" required>
+                <span id="proteinasValue">30%</span>
+            </div>
+            <div class="mb-3">
+                <label for="gordurasRange" class="form-label">Porcentagem de Gorduras (%)</label>
+                <input type="range" class="form-range" min="0" max="100" id="gordurasRange" name="gordurasRange" oninput="updateValue('gordurasValue', this.value)" required>
+                <span id="gordurasValue">20%</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+        <div id="resultados" class="mt-5">
+            <h2>Resultados</h2>
+            <p>Carboidratos: <span id="carboidratosGrams">0</span>g</p>
+            <p>Proteínas: <span id="proteinasGrams">0</span>g</p>
+            <p>Gorduras: <span id="gordurasGrams">0</span>g</p>
+        </div>
+    </div>
+    <script>
+        function updateValue(id, value) {
+            document.getElementById(id).textContent = value + '%';
+        }
+
+        document.getElementById('macroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const calorias = parseFloat(document.getElementById('calorias').value);
+            const carboidratosPercent = parseFloat(document.getElementById('carboidratosRange').value) / 100;
+            const proteinasPercent = parseFloat(document.getElementById('proteinasRange').value) / 100;
+            const gordurasPercent = parseFloat(document.getElementById('gordurasRange').value) / 100;
+
+            const carboidratosGrams = (calorias * carboidratosPercent) / 4;
+            const proteinasGrams = (calorias * proteinasPercent) / 4;
+            const gordurasGrams = (calorias * gordurasPercent) / 9;
+
+            document.getElementById('carboidratosGrams').textContent = carboidratosGrams.toFixed(2);
+            document.getElementById('proteinasGrams').textContent = proteinasGrams.toFixed(2);
+            document.getElementById('gordurasGrams').textContent = gordurasGrams.toFixed(2);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

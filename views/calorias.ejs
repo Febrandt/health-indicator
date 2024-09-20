@@ -1,0 +1,147 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Calorias</title>
+
+</head>
+
+<body>
+    <%- include('partials/header' , {user: user}) %>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Gasto Calórico: O que é?</h1>
+                    <div>
+                        O gasto calórico é a quantidade total de energia que o corpo gasta por dia, incluindo a energia
+                        que o corpo precisa para manter as funções básicas, como respiração ou os batimentos do coração,
+                        e a energia que se gasta em atividades feitas ao longo do dia, como limpar a casa, trabalhar ou
+                        praticar atividades físicas, por exemplo.
+                        <br>
+                        Para calcular esse gasto calórico pode-se utilizar uma fórmula elaborada pela Organização
+                        Mundial de Saúde, onde se multiplica o gasto energético das funções básicas do corpo por um
+                        fator de atividade, que é um valor que varia de acordo com o sexo, peso, idade e tipos de
+                        atividade que a pessoa realiza durante o dia.
+                        <br>
+                        Saber o gasto calórico diário é interessante para pessoas que desejam emagrecer, engordar ou
+                        manter o peso, por exemplo, pois assim é possível que o nutricionista elabore um plano alimentar
+                        adequado ao objetivo da pessoa e calorias gastas durante o dia.
+                    </div>
+                    <br>
+                    <img
+                        src="https://static.tuasaude.com/media/article/hp/ue/saiba-quantas-calorias-gasta-por-dia_56002_l.webp">
+                    <br><br>
+                    <h1>Como o gasto calórico pode variar</h1>
+                    <div>
+                        Existem vários fatores que podem influenciar o gasto calórico, um deles é o peso corporal, pois
+                        quanto maior é o peso, maior será o esforço que o corpo precisa fazer para realizar as mesmas
+                        tarefas de uma pessoa com menos peso, por exemplo.<br>
+                        Outro fator é o tipo e o tempo de atividades praticadas ao longo do dia. Por exemplo, uma pessoa
+                        que trabalha o dia inteiro sentada e não pratica atividade física, gasta menos energia que uma
+                        pessoa que trabalha o dia inteiro sentada, mas que pratica 5 horas de atividades físicas por
+                        semana.<br>
+                        Além disso, situações como gravidez, cirurgias ou desnutrição aceleram o metabolismo, aumentando
+                        o gasto calórico diário.
+                    </div>
+                </div>
+                <div class="col" style="margin-top: 40px;">
+                    <form class="row rounded border mx-auto" id="caloriasForm" style="width: 300px;"
+                        action="/calcular_calorias" method="post">
+                        <h1>Calculadora</h1>
+                        <div class="mb-3">
+                            <label for="inputIdade" class="form-label">Idade</label>
+                            <input id="inputIdade" type="number" class="form-control" name="idade">
+                            <label for="inputGenero" class="form-label">Genêro</label>
+                            <select id="selectGenero" class="form-select" name="genero">
+                                <option name="masculino" value="+5">Masculino</option>
+                                <option name="feminino" value=" - 161">Feminino</option>
+                            </select>
+                            <label for="inputAltura" class="form-label">Altura</label>
+                            <input id="inputAltura" class="form-control" type="number" placeholder="cm" name="altura">
+                            <label for="inputPeso" class="form-label">Peso</label>
+                            <input id="inputPeso" class="form-control" type="number" placeholder="kg" name="peso">
+                            <label for="selectAtividade" class="form-label">Nível de Atividade Física</label>
+                            <select id="selectAtividade" class="form-select" name="atividade">
+                                <option value="1">Taxa Metabólica Basal</option>
+                                <option value="1.2">Sedentário: Pouco ou quase nenhum exercício</option>
+                                <option value="1.375">Leve: 1-3/semana</option>
+                                <optin value="1.55">Moderado: 4-5/semana</optin>
+                                <option value="1.725">Muito: 6-7/semana(moderado) ou 3-4/semana(intenso)</option>
+                                <option value="1.9">Muito Ativo: exercício intenso todos os dia, ou trabalho manual
+                                </option>
+                            </select>
+
+                            <br>
+                            <button type="submit" class="btn btn-success">Calcular</button>
+                        </div>
+                    </form>
+                    <% if (calculo_calorias !=null) {%>
+                        <% var string_calorias=calculo_calorias.toFixed(0)%>
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col border">
+                                        <span class="display-6 fw-normal">Ganhar Peso</span>
+                                    </div>
+                                    <div class="col border">
+                                        <h1>
+                                            <%=(calculo_calorias * 1.2).toFixed(0) %>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col border">
+                                        <span class="display-6 fw-normal">Ganhar Peso Lentamente</span>
+                                    </div>
+                                    <div class="col border">
+                                        <h1>
+                                            <%=(calculo_calorias * 1.1).toFixed(0) %>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col border">
+                                        <span class="display-6 fw-normal">Manter Peso</span>
+                                    </div>
+                                    <div class="col border">
+                                        <h1>
+                                            <%=string_calorias %>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col border">
+                                        <span class="display-6 fw-normal">Perder Peso Lentamente</span>
+                                    </div>
+                                    <div class="col border">
+                                        <h1>
+                                            <%=(calculo_calorias * 0.9).toFixed(0) %>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col border">
+                                        <span class="display-6 fw-normal">Perder Peso</span>
+                                    </div>
+                                    <div class="col border">
+                                        <h1>
+                                            <%=(calculo_calorias * 0.8).toFixed(0) %>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
