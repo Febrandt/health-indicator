@@ -1,3 +1,3 @@
-HEALTH INDICATOR
+INDICADOR DE SAÚDE
 
-I made a beginner app for calorie counting and BMI, for my system development course. The technologies used are javascript, expressjs, nodejs and mysql.
+Fiz um aplicativo iniciante para contagem de calorias e IMC, para meu curso de desenvolvimento de sistemas. As tecnologias utilizadas são javascript, expressjs, nodejs e mysql.
